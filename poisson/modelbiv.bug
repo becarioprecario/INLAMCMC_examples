@@ -1,0 +1,11 @@
+model {
+
+  for(i in 1:N) {
+    y[i] ~ dpois(mu[i])
+    log(mu[i]) <- alpha + beta1 * x1[i] + beta2 * x2[i]
+  }
+
+  alpha ~ dunif(-1000, 1000)
+  beta1 ~ dnorm(0, .001)
+  beta2 ~ dnorm(0, .001)
+}

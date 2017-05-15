@@ -1,0 +1,15 @@
+model {
+
+  for(i in 1:n) {
+    y[i] ~ dnorm(mu[i], tau)
+    mu[i] <- inprod(x[i, ], b[])
+  }
+
+  tt <- lambda 
+  for(j in 1:p) {
+    b[j] ~ ddexp(0, tt)
+  }
+
+  tau ~ dgamma(1, 0.00005)
+
+}

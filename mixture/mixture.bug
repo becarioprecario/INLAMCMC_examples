@@ -1,0 +1,30 @@
+model {
+
+  #Observations
+  for(i in 1:N) {
+    y[i] ~ dnorm(mu[Z[i]], prec[Z[i]])
+  }
+
+  #Components
+  #Mu[i] re-ordered mean of group 
+  for(k in 1:K) {
+    #sigma[k] ~ dunif(s.min, s.max)
+    mu.orig[k] ~ dnorm (mean.grp[k], prec.grp[k])#I(0, 10)
+    prec.orig[k] ~ dgamma(gamma.a, gamma.b) #<- 1/(sigma[k] * sigma[k])
+  }
+
+  grp.rank <- order(mu.orig[])#JAGS specific
+  for(k in 1:K) {
+    mu[k] <- mu.orig[grp.rank[k]]
+    prec[k] <- prec.orig[grp.rank[k]]
+  }
+
+  #Distribution of Z
+  for(i in 1:N) {
+    Z[i] ~ dcat (w[])
+  }
+  
+  #Prior on the proportion of observations in each group
+  w[1:K] ~ ddirch(alpha[])
+}
+

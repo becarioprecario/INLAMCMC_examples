@@ -1,0 +1,16 @@
+model {
+
+  for(i in 1:N) {
+    y[i] ~ dnorm(mu[i], prec)
+    mu[i] <- alpha + beta * x[i]
+  }
+
+  for(j in 1:n.mis) {
+    x[idx.mis[j]] ~ dnorm(mean.mis, prec.mis)
+  }
+
+  alpha ~ dunif(-1000, 1000)
+  beta ~ dnorm(0, .001)
+  prec ~ dgamma(1, 0.00005)
+
+}

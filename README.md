@@ -1,4 +1,4 @@
-# INLAMCMC
+# INLA within MCMC
 
 Here I have included the R code used in the examples in paper 'Markov Chain
 Monte Carlo with the Integrated Nested Laplace Approximation' by V. Gómez-Rubio
