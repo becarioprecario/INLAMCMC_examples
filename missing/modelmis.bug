@@ -1,16 +1,18 @@
 model {
 
   for(i in 1:N) {
-    y[i] ~ dnorm(mu[i], prec)
-    mu[i] <- alpha + beta * x[i]
+    chl[i] ~ dnorm(mu[i], prec)
+    mu[i] <- alpha + beta * bmi[i] + b.age2 * agecat[i, 2] + b.age3 * agecat[i, 3]
   }
 
   for(j in 1:n.mis) {
-    x[idx.mis[j]] ~ dnorm(mean.mis, prec.mis)
+    bmi[idx.mis[j]] ~ dnorm(mean.mis, prec.mis)
   }
 
   alpha ~ dunif(-1000, 1000)
   beta ~ dnorm(0, .001)
+  b.age2 ~ dnorm(0, .001)
+  b.age3 ~ dnorm(0, .001)
   prec ~ dgamma(1, 0.00005)
 
 }
